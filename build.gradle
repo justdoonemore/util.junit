@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+group="com.jdom"
+version="0.0.3"
+
+repositories {
+    maven {
+        credentials {
+           username nexusUsername
+           password nexusPassword
+        }
+        url nexusUrl
+    }
+}
+
+uploadArchives {
+   repositories {
+       mavenDeployer {
+	       repository(url: releasesUrl) {
+	           authentication(userName: nexusUsername, password: nexusPassword)
+           }
+       }
+   }
+}
+
+dependencies {
+   compile "commons-io:commons-io:2.1"
+   compile "junit:junit:4.11"
+}
